@@ -1,4 +1,5 @@
 #[warn(missing_debug_implementations, missing_debug_implementations)]
+
 use std::ops;
 
 /// Struct for holding a standard vector in 3-space
@@ -24,7 +25,28 @@ impl Vec3 {
         Self { x, y, z }
     }
 
-    // pub fn dot(self, )
+    /// Compute the dot product of this vector with another vector
+    pub fn dot(self, other: Vec3) -> f64 {
+        self.x * other.x + self.y * other.y + self.z * other.z
+    }
+
+    /// Compute the cross product of this vector with another vector
+    pub fn cross(&self, other: &Vec3) -> Vec3 {
+        Vec3::new(
+            self.y * other.z - self.z * other.y,
+            self.z * other.x - self.x * other.z,
+            self.x * other.y - self.y * other.x,
+        )
+    }
+
+    // pub fn length(self) -> f64 {
+    //     self.dot(self).sqrt()
+    // }
+
+    // pub fn angle_to(self, other: Vec3) -> f64 {
+    //     (self.dot(other) / (self.length() * other.length())).acos()
+    // }
+
 }
 
 impl ops::Add<Vec3> for Vec3 {
@@ -38,7 +60,6 @@ impl ops::Add<Vec3> for Vec3 {
 #[cfg(test)]
 mod tests {
     use super::Vec3;
-
 
     #[test]
     fn vector_add() {
@@ -66,3 +87,4 @@ mod tests {
         assert_eq!(v.z, 5.);
     }
 }
+
